@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 /// ctrl+shift+C để comment nhiều hoặc 1 dòng
 
-public class Topic_01_Data_Type {
+public class Topic_01_Variable {
 	/// các biến dưới đây là toàn cục
 	static int studentNumber;
 	static boolean statusValue;
