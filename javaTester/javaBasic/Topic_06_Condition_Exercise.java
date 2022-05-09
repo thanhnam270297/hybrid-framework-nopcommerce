@@ -1,17 +1,7 @@
 package javaBasic;
 
-import org.testng.annotations.Parameters;
 import org.testng.annotations.Test;
-
 import java.util.Scanner;
-
-import javax.management.RuntimeErrorException;
-
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.edge.EdgeDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.ie.InternetExplorerDriver;
 
 public class Topic_06_Condition_Exercise {
 

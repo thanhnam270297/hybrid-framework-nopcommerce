@@ -5,8 +5,6 @@ import org.testng.annotations.Test;
 
 import java.util.Scanner;
 
-import javax.management.RuntimeErrorException;
-
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
@@ -64,7 +62,6 @@ public class Topic_07_Switch_Case {
 		
 		/// only convertible int values, strings or enum variables ( = constant) are permitted
 		
-		int diem1 = scanner.nextInt();
 		
 		String ten = scanner.nextLine();
 		
