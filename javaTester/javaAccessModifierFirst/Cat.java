@@ -1,0 +1,5 @@
+package javaAccessModifierFirst;
+
+class Cat {
+
+}
