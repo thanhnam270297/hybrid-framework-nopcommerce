@@ -32,10 +32,10 @@ public class Level_02_Apply_BasePage_1 {
 
 	@Test
 	public void TC_01_Register_Empty_Data() {
-		basePage.waitForAllElementClickable(driver, "//a[@class='ico-register']");
+		basePage.waitForElementClickable(driver, "//a[@class='ico-register']");
 		basePage.clickToElement(driver, "//a[@class='ico-register']");
 		
-		basePage.waitForAllElementClickable(driver, "//button[@id='register-button']");
+		basePage.waitForElementClickable(driver, "//button[@id='register-button']");
 		basePage.clickToElement(driver, "//button[@id='register-button']");
 
 		/// cách 1: assert true xem có display ko
