@@ -40,6 +40,4 @@ public class HomePageObject extends BasePage {
 		return PageGeneratorManager.getLoginPage(driver);
 
 	}
-
-
 }

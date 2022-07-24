@@ -15,6 +15,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import pageObject.MyAccountPageObject;
+import pageObject.OrderPageObject;
+import pageObject.PageGeneratorManager;
+import pageObject.SearchPageObject;
+import pageUIs.BasePageUI;
+import pageUIs.HomePageUI;
+import pageUIs.MyAccountPageUI;
+import pageUIs.OrderPageUI;
+import pageUIs.SearchPageUI;
+
 public class BasePage {
 
 	public void openPageUrl(WebDriver driver, String pageUrl) {
@@ -325,6 +335,27 @@ public class BasePage {
 	public void waitForElementClickable(WebDriver driver, String xpathLocator) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeOut);
 		explicitWait.until(ExpectedConditions.elementToBeClickable(getByXpath(xpathLocator)));
+	}
+	
+	public SearchPageObject openSearchPage(WebDriver driver) {
+		// TODO Auto-generated method stub
+		waitForElementClickable(driver, BasePageUI.SEARCH_PAGE_FOOTER);
+		clickToElement(driver, BasePageUI.SEARCH_PAGE_FOOTER);
+		return PageGeneratorManager.getSearchPage(driver);
+	}
+	
+	public MyAccountPageObject openMyAccountPage(WebDriver driver) {
+		// TODO Auto-generated method stub
+		waitForElementClickable(driver, BasePageUI.MY_ACCOUNT_PAGE_FOOTER);
+		clickToElement(driver, BasePageUI.MY_ACCOUNT_PAGE_FOOTER);
+		return PageGeneratorManager.getMyAccountPage(driver);
+	}
+	
+	public OrderPageObject openOrderPage(WebDriver driver) {
+		// TODO Auto-generated method stub
+		waitForElementClickable(driver, BasePageUI.ORDERS_PAGE_FOOTER);
+		clickToElement(driver, BasePageUI.ORDERS_PAGE_FOOTER);
+		return PageGeneratorManager.getOrderPage(driver);
 	}
 	
 	private long longTimeOut = 30;
