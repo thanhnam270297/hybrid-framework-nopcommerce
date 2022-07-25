@@ -55,6 +55,8 @@ public class BaseTest {
 			throw new RuntimeException("Please enter correct browser name!");
 		}
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
+		driver.get(GlobalConstants.DEV_APP_URL_STRING);
 		return driver;
 	}
 	
@@ -75,6 +77,7 @@ public class BaseTest {
 			throw new RuntimeException("Please enter correct browser name!");
 		}
 		driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+		driver.manage().window().maximize();
 		driver.get(appUrl);
 		return driver;
 	}

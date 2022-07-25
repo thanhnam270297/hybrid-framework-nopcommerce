@@ -2,7 +2,6 @@ package commons;
 
 import java.util.List;
 import java.util.Set;
-
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -14,6 +13,8 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import com.github.dockerjava.api.model.ServiceGlobalModeOptions;
 
 import pageObject.MyAccountPageObject;
 import pageObject.OrderPageObject;
@@ -127,15 +128,37 @@ public class BasePage {
 	public void clickToElement(WebDriver driver, String xpathLocator) {
 		getWebElement(driver, xpathLocator).click();
 	}
+	
+	// tạo 1 hàm get dynamic locator để ko bị trùng lặp
+	public String getDynamicLocator(String xpathLocator, String... params) {
+		return String.format(xpathLocator, (Object[]) params);
+	}
+	
+	// hàm click cho n dynamic params
+	public void clickToElement(WebDriver driver, String xpathLocator, String... params) {
+		getWebElement(driver, getDynamicLocator(xpathLocator, params)).click();
+	}
 
 	public void sendkeyToElement(WebDriver driver, String xpathLocator, String textValue) {
 		WebElement element = getWebElement(driver, xpathLocator);
 		element.clear();
 		element.sendKeys(textValue);
 	}
+	
+	// tương tự 1 hàm cho sendkey
+	public void sendkeyToElement(WebDriver driver, String xpathLocator, String textValue, String... params) {
+		WebElement element = getWebElement(driver, getDynamicLocator(xpathLocator, params));
+		element.clear();
+		element.sendKeys(textValue);
+	}
 
 	public String getElementText(WebDriver driver, String xpathLocator) {
 		return getWebElement(driver, xpathLocator).getText();
+	}
+	
+	// tương tự 1 hàm cho gettext
+	public String getElementText(WebDriver driver, String xpathLocator, String... params) {
+		return getWebElement(driver, getDynamicLocator(xpathLocator, params)).getText();
 	}
 
 	public void selectItemInDefaultDropdown(WebDriver driver, String xpathLocator, String textValue) {
@@ -182,7 +205,6 @@ public class BasePage {
 		try {
 			Thread.sleep(second * 1000);
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -219,6 +241,11 @@ public class BasePage {
 
 	public boolean isElementDisplayed(WebDriver driver, String xpathLocator) {
 		return getWebElement(driver, xpathLocator).isDisplayed();
+	}
+	
+	// tương tự 1 hàm cho isdisplay
+	public boolean isElementDisplayed(WebDriver driver, String xpathLocator, String... params) {
+		return getWebElement(driver, getDynamicLocator(xpathLocator, params)).isDisplayed();
 	}
 
 	public boolean isElementEnable(WebDriver driver, String xpathLocator) {
@@ -317,6 +344,12 @@ public class BasePage {
 		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByXpath(xpathLocator)));
 	}
 	
+	// 1 hàm tương tự cho waitForElementVisible
+	public void waitForElementVisible(WebDriver driver, String xpathLocator, String... params) {
+		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeOut);
+		explicitWait.until(ExpectedConditions.visibilityOfElementLocated(getByXpath(getDynamicLocator(xpathLocator, params))));
+	}
+	
 	public void waitForAllElementsVisible(WebDriver driver, String xpathLocator) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeOut);
 		explicitWait.until(ExpectedConditions.visibilityOfAllElementsLocatedBy(getByXpath(xpathLocator)));
@@ -325,6 +358,12 @@ public class BasePage {
 	public void waitForElementInvisible(WebDriver driver, String xpathLocator) {
 		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeOut);
 		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByXpath(xpathLocator)));
+	}
+	
+	// 1 hàm tương tự cho waitForElementInvisible
+	public void waitForElementInvisible(WebDriver driver, String xpathLocator, String... params) {
+		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeOut);
+		explicitWait.until(ExpectedConditions.invisibilityOfElementLocated(getByXpath(getDynamicLocator(xpathLocator, params))));
 	}
 	
 	public void waitForAllElementsInvisible(WebDriver driver, String xpathLocator) {
@@ -337,27 +376,53 @@ public class BasePage {
 		explicitWait.until(ExpectedConditions.elementToBeClickable(getByXpath(xpathLocator)));
 	}
 	
+	// 1 hàm tương tự cho waitForElementClickable
+	public void waitForElementClickable(WebDriver driver, String xpathLocator, String... params) {
+		WebDriverWait explicitWait = new WebDriverWait(driver, longTimeOut);
+		explicitWait.until(ExpectedConditions.elementToBeClickable(getByXpath(getDynamicLocator(xpathLocator, params))));
+	}
+	
+	/*-------giả sử có 20 page ở footer-------*/
 	public SearchPageObject openSearchPage(WebDriver driver) {
-		// TODO Auto-generated method stub
 		waitForElementClickable(driver, BasePageUI.SEARCH_PAGE_FOOTER);
 		clickToElement(driver, BasePageUI.SEARCH_PAGE_FOOTER);
 		return PageGeneratorManager.getSearchPage(driver);
 	}
 	
 	public MyAccountPageObject openMyAccountPage(WebDriver driver) {
-		// TODO Auto-generated method stub
 		waitForElementClickable(driver, BasePageUI.MY_ACCOUNT_PAGE_FOOTER);
 		clickToElement(driver, BasePageUI.MY_ACCOUNT_PAGE_FOOTER);
 		return PageGeneratorManager.getMyAccountPage(driver);
 	}
 	
 	public OrderPageObject openOrderPage(WebDriver driver) {
-		// TODO Auto-generated method stub
 		waitForElementClickable(driver, BasePageUI.ORDERS_PAGE_FOOTER);
 		clickToElement(driver, BasePageUI.ORDERS_PAGE_FOOTER);
 		return PageGeneratorManager.getOrderPage(driver);
 	}
 	
-	private long longTimeOut = 30;
-	private long shortTimeOut = 5;
+	/*-------1 hàm cho 2 page, thêm các hàm click, wait, sendkey-------*/
+	// case 1: page < 10 => dùng if else hoặc switch case
+	// trả về BasePage vì là lớp cha của getSearchPage, getOrderPage, getMyAccountPage
+	public BasePage getFooterPageByName(WebDriver driver, String pageName) {
+		waitForElementClickable(driver, BasePageUI.DYNAMIC_PAGE_FOOTER, pageName);
+		clickToElement(driver, BasePageUI.DYNAMIC_PAGE_FOOTER, pageName);
+		
+		if(pageName.equals("Search")) {
+			return PageGeneratorManager.getSearchPage(driver);
+		} else if(pageName.equals("Orders")) {
+			return PageGeneratorManager.getOrderPage(driver);
+		} else {
+			return PageGeneratorManager.getMyAccountPage(driver);
+		}
+	}
+	
+	// case 2: multiple page
+	public void openFooterPageByName(WebDriver driver, String pageName) {
+		waitForElementClickable(driver, BasePageUI.DYNAMIC_PAGE_FOOTER, pageName);
+		clickToElement(driver, BasePageUI.DYNAMIC_PAGE_FOOTER, pageName);
+	}
+	
+	private long longTimeOut = GlobalConstants.LONG_TIMEOUT;
+	private long shortTimeOut = GlobalConstants.SHORT_TIMEOUT;
 }
