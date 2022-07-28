@@ -1,4 +1,4 @@
-package pageUIs;
+package pageUIs.nopcommerce;
 
 public class BasePageUI {
 	// có 20 pages ở footer

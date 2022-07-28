@@ -3,7 +3,7 @@ package pageObject;
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
-import pageUIs.SearchPageUI;
+import pageUIs.nopcommerce.SearchPageUI;
 
 public class SearchPageObject extends BasePage{
 	WebDriver driver;

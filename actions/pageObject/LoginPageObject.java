@@ -3,7 +3,7 @@ package pageObject;
 import org.openqa.selenium.WebDriver;
 
 import commons.BasePage;
-import pageUIs.LoginPageUI;
+import pageUIs.nopcommerce.LoginPageUI;
 
 public class LoginPageObject extends BasePage {
 

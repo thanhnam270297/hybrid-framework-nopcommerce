@@ -20,11 +20,11 @@ import pageObject.MyAccountPageObject;
 import pageObject.OrderPageObject;
 import pageObject.PageGeneratorManager;
 import pageObject.SearchPageObject;
-import pageUIs.BasePageUI;
-import pageUIs.HomePageUI;
-import pageUIs.MyAccountPageUI;
-import pageUIs.OrderPageUI;
-import pageUIs.SearchPageUI;
+import pageUIs.nopcommerce.BasePageUI;
+import pageUIs.nopcommerce.HomePageUI;
+import pageUIs.nopcommerce.MyAccountPageUI;
+import pageUIs.nopcommerce.OrderPageUI;
+import pageUIs.nopcommerce.SearchPageUI;
 
 public class BasePage {
 
