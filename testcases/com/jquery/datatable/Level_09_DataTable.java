@@ -23,7 +23,6 @@ public class Level_09_DataTable extends BaseTest {
 		homePage = PageGeneratorManager.getHomePage(driver);
 	}
 
-	
 	@Test
 	public void Table_01_Paging() {
 		homePage.openPageByNumber("5");
@@ -36,10 +35,41 @@ public class Level_09_DataTable extends BaseTest {
 		Assert.assertTrue(homePage.isPageActivedByNumber("15"));
 	}
 
+	@Test
+	public void Table_02_Input_Data() {
+		homePage.inputToHeaderTextboxByName("Females", "276880");
+		homePage.sleepInSecond(3);
+		homePage.refreshCurrentPage(driver);
+		
+		homePage.inputToHeaderTextboxByName("Country", "Angola");
+		homePage.sleepInSecond(3);
+		homePage.refreshCurrentPage(driver);
+		
+		homePage.inputToHeaderTextboxByName("Males", "276472");
+		homePage.sleepInSecond(3);
+		homePage.refreshCurrentPage(driver);
+	}
 	
 	@Test
-	public void Tabel_02_Actions() {
+	public void Table_03_Click_Icon() {
+		homePage.clickToIconByCountryName("Angola", "remove");
+		homePage.sleepInSecond(3);
 		
+		homePage.clickToIconByCountryName("Algeria", "remove");
+		homePage.sleepInSecond(3);
+		
+		homePage.clickToIconByCountryName("Afghanistan", "edit");
+		homePage.sleepInSecond(3);
+		homePage.refreshCurrentPage(driver);
+		
+		homePage.clickToIconByCountryName("Albania", "edit");
+		homePage.sleepInSecond(3);
+		homePage.refreshCurrentPage(driver);
+	}
+	
+	@Test
+	public void Table_04_Verify_Row_Values() {
+		homePage.inputToHeaderTextboxByName("Country", "Afghanistan");
 	}
 	
 	

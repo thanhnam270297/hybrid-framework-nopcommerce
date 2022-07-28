@@ -1,5 +1,6 @@
 package pageObject.jQuery;
 
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import commons.BasePage;
 import pageUIs.jQuery.HomePageUI;
@@ -28,6 +29,19 @@ public class HomePageObject extends BasePage {
 		// TODO Auto-generated method stub
 		waitForElementVisible(driver, HomePageUI.PAGING_NUMBER_ACTIVED, pageNumber);
 		return isElementDisplayed(driver, HomePageUI.PAGING_NUMBER_ACTIVED, pageNumber);
+	}
+
+	public void inputToHeaderTextboxByName(String headerName, String value) {
+		// TODO Auto-generated method stub
+		waitForElementVisible(driver, HomePageUI.HEADER_TEXTBOX_BY_NAME, headerName);
+		sendkeyToElement(driver, HomePageUI.HEADER_TEXTBOX_BY_NAME, value, headerName);
+		pressKeyToElement(driver, HomePageUI.HEADER_TEXTBOX_BY_NAME, Keys.ENTER, headerName);
+	}
+
+	public void clickToIconByCountryName(String countryName, String iconAction) {
+		// TODO Auto-generated method stub
+		waitForElementVisible(driver, HomePageUI.ICON_BY_COUNTRY_NAME, countryName, iconAction);
+		clickToElement(driver, HomePageUI.ICON_BY_COUNTRY_NAME, countryName, iconAction);
 	}
 
 	

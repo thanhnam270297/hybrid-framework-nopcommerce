@@ -5,6 +5,7 @@ import java.util.Set;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -150,6 +151,17 @@ public class BasePage {
 		WebElement element = getWebElement(driver, getDynamicLocator(xpathLocator, params));
 		element.clear();
 		element.sendKeys(textValue);
+	}
+	
+	public void pressKeyToElement(WebDriver driver, String locator, Keys key) {
+		action = new Actions(driver);
+		action.sendKeys(getWebElement(driver, locator), key).perform();
+	}
+	
+	public void pressKeyToElement(WebDriver driver, String locator, Keys key, String... params) {
+		action = new Actions(driver);
+		locator = getDynamicLocator(locator, params);
+		action.sendKeys(getWebElement(driver, locator), key).perform();
 	}
 
 	public String getElementText(WebDriver driver, String xpathLocator) {
@@ -425,4 +437,5 @@ public class BasePage {
 	
 	private long longTimeOut = GlobalConstants.LONG_TIMEOUT;
 	private long shortTimeOut = GlobalConstants.SHORT_TIMEOUT;
+	Actions action;
 }
